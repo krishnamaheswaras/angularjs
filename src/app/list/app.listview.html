@@ -1,0 +1,34 @@
+<kendo-grid
+        [data]="gridData"
+        [pageSize]="state.take"
+        [skip]="state.skip"
+        [sort]="state.sort"
+        [filter]="state.filter"
+        [sortable]="true"
+        [pageable]="true"
+        [filterable]="true"
+        (dataStateChange)="dataStateChange($event)"
+    >
+	<ng-template kendoGridToolbarTemplate>
+                <button type="button" kendoGridExcelCommand ><span class="k-icon k-i-file-excel"></span>Export to Excel</button>
+            </ng-template>
+    <kendo-grid-column field="ProductID" title="ID" width="40" [filterable]="false">
+    </kendo-grid-column>
+    <kendo-grid-column field="ProductName" title="Product Name">
+    </kendo-grid-column>
+    <kendo-grid-column field="FirstOrderedOn" title="First Ordered On" width="240" filter="date" format="{0:d}">
+    </kendo-grid-column>
+    <kendo-grid-column field="UnitPrice" title="Unit Price" width="180" filter="numeric" format="{0:c}">
+    </kendo-grid-column>
+    <kendo-grid-column field="Discontinued" width="120" filter="boolean">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
+        </ng-template>
+    </kendo-grid-column>
+	 <kendo-grid-excel fileName="Products.xlsx">
+                <kendo-excelexport-column field="ProductName" title="Product Name">
+                </kendo-excelexport-column>
+                <kendo-excelexport-column field="Category.CategoryName" title="Category">
+                </kendo-excelexport-column>
+            </kendo-grid-excel>
+    </kendo-grid>
